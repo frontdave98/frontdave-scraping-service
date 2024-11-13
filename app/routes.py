@@ -3,13 +3,25 @@ from app.scraper import MangaScraper
 
 api = Blueprint("api", __name__)
 
-@api.route("/api/manga", methods=["GET"])
+@api.route("/api/manga/list", methods=["POST"])
 def get_manga():
-    url = request.args.get("url")
-    if not url:
+    data = request.json
+    if not data['url']:
         return jsonify({"error": "URL parameter is required"}), 400
 
-    result = MangaScraper.scrape_manga(url)
+    result = MangaScraper.scrape_manga(data)
+    if "error" in result:
+        return jsonify(result), 500
+
+    return jsonify(result)
+
+@api.route("/api/manga/detail", methods=["POST"])
+def get_manga_detail():
+    data = request.json
+    if not data['url']:
+        return jsonify({"error": "URL parameter is required"}), 400
+
+    result = MangaScraper.scrape_manga_detail(data)
     if "error" in result:
         return jsonify(result), 500
 
