@@ -28,3 +28,8 @@ def get_manga_detail():
         return jsonify(result), 500
 
     return jsonify(result)
+
+@api.route('/api/health-check', methods=['GET'])
+def endpoint():
+    print("Request received!")
+    return jsonify({"message": "Success!"})
