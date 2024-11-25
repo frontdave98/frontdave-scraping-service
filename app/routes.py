@@ -3,7 +3,7 @@ from app.scraper import MangaScraper
 from flask_cors import CORS
 
 api = Blueprint("api", __name__)
-CORS(api, resources={r"/*": {"origins": "https://frontdave.vercel.app"}})
+CORS(api)
 
 @api.route("/api/manga/list", methods=["POST"])
 def get_manga():
